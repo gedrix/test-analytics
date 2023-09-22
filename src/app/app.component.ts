@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-//import { gtag } from '@google/analytics';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
+
 declare var gtag: Function;
 
 @Component({
@@ -10,19 +11,13 @@ declare var gtag: Function;
 export class AppComponent  {
   title = 'test_analytics';
   public counter: number = 0;
-  constructor() { }
+  constructor(
+    private $gaService: GoogleAnalyticsService
+  ) { }
 
-  // increaseBy() {
-  //   gtag('config', 'G-V3P1K0Z2V0', {
-  //     // Additional event parameters
-  //   });
-  //   this.counter += 1;
-  // }
   increaseBy() {
-    gtag('event', 'button-click', {
-    'event_category': 'BUTTON_CLICK',
-    'event_label': 'Track Me Click',
-    'value': 'Put a value here that is meaningful with respect to the click event'   })
+    // gtag('event', 'button-click')
+    this.$gaService.event('button-click');
       this.counter += 1;
 
     }
